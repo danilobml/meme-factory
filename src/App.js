@@ -69,12 +69,13 @@ function App() {
       <div>
         <Row>
           <Col className="mx-auto" sm={5}>
-            <Form.Group className="mb-1 mx-auto my-auto" onChange={(e) => handleUserInput(e)}>
+            <Form.Group className="mb-0 mx-auto my-auto" onChange={(e) => handleUserInput(e)}>
               <Form.Control size="sm" placeholder="Type top text (optional)" className="mx-auto mb-2" name="top" id="top" type="text" />
               <Form.Control size="sm" placeholder="Type bottom text (optional)" className="mx-auto mb-2" name="bottom" id="bottom" type="text" />
             </Form.Group>
-            <Form.Group className="mx-auto">
+            <Form.Group className="mx-auto mb-0">
               <label>Choose a meme pic:</label>
+              <br />
               <Button variant="secondary" size="sm" className="m-1" onClick={prev}>
                 Prev Picture
               </Button>
@@ -83,7 +84,7 @@ function App() {
               </Button>
             </Form.Group>
             <br />
-            <Form.Group controlId="formFileSm" className="m-1 mx-auto file">
+            <Form.Group controlId="formFileSm" className="m-1 mt-0 mx-auto file">
               <label htmlFor="file-input">Or use your own:</label>
               <Form.Control type="file" id="file-input" size="sm" onChange={(e) => handleFileInput(e)} />
             </Form.Group>
