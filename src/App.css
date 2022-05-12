@@ -45,19 +45,3 @@
   text-align:center;
   overflow-wrap: break-word; 
 }
-
-.file {
-  width:500px;
-}
-
-label {
-  margin-left: 3px;
-}
-
-#top, #bottom {
-  width: 500px;
-}
-
-.download {
-  width: 150px;
-}

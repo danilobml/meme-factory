@@ -3,8 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import domtoimage from "dom-to-image";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Button, Form, Container, Image, Row, Col } from "react-bootstrap";
 
 function App() {
   const [allMemes, setAllMemes] = useState();
@@ -65,28 +64,34 @@ function App() {
   if (!currentPicture) return null;
 
   return (
-    <div className="App">
+    <Container fluid className="App mx-auto my-auto">
       <h2>Meme Factory!</h2>
       <div>
-        <Form.Group className="mb-1" onChange={(e) => handleUserInput(e)}>
-          <Form.Control size="sm" placeholder="Type top text (optional)" className="mx-auto mb-2" name="top" id="top" type="text" />
-          <Form.Control size="sm" placeholder="Type bottom text (optional)" className="mx-auto mb-2" name="bottom" id="bottom" type="text" />
-        </Form.Group>
-        <label>Choose a meme picture:</label>
-        <Button variant="secondary" size="sm" className="m-1" onClick={prev}>
-          Previous Picture
-        </Button>
-        <Button variant="secondary" size="sm" className="m-1" onClick={next}>
-          Next Picture
-        </Button>
-        <br />
-        <Form.Group controlId="formFileSm" className="m-1 mx-auto file">
-          <label htmlFor="file-input">Or use your own pic:</label>
-          <Form.Control type="file" id="file-input" size="sm" onChange={(e) => handleFileInput(e)} />
-        </Form.Group>
+        <Row>
+          <Col className="mx-auto" sm={5}>
+            <Form.Group className="mb-1 mx-auto my-auto" onChange={(e) => handleUserInput(e)}>
+              <Form.Control size="sm" placeholder="Type top text (optional)" className="mx-auto mb-2" name="top" id="top" type="text" />
+              <Form.Control size="sm" placeholder="Type bottom text (optional)" className="mx-auto mb-2" name="bottom" id="bottom" type="text" />
+            </Form.Group>
+            <Form.Group className="mx-auto">
+              <label>Choose a meme pic:</label>
+              <Button variant="secondary" size="sm" className="m-1" onClick={prev}>
+                Prev Picture
+              </Button>
+              <Button variant="secondary" size="sm" className="m-1" onClick={next}>
+                Next Picture
+              </Button>
+            </Form.Group>
+            <br />
+            <Form.Group controlId="formFileSm" className="m-1 mx-auto file">
+              <label htmlFor="file-input">Or use your own:</label>
+              <Form.Control type="file" id="file-input" size="sm" onChange={(e) => handleFileInput(e)} />
+            </Form.Group>
+          </Col>
+        </Row>
       </div>
       <div className="pic-div" ref={elementRef}>
-        <img className="pic" src={file ? currentPicture : currentPicture.url} alt="Meme Picture" />
+        <Image fluid className="pic" src={file ? currentPicture : currentPicture.url} alt="Meme Picture" />
         {userInput && (
           <>
             <h1 className="top-text">{userInput.top}</h1>
@@ -97,7 +102,7 @@ function App() {
       <Button variant="success" size="sm" className="m-1 mx-auto download" onClick={handleGenerate}>
         Download Meme
       </Button>
-    </div>
+    </Container>
   );
 }
 
