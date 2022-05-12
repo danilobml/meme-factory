@@ -2,18 +2,19 @@ import "./App.css";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import domtoimage from "dom-to-image";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 function App() {
   const [allMemes, setAllMemes] = useState();
-  const [currentPicture, setCurrentPicture] = useState(); // undefined or {}
+  const [currentPicture, setCurrentPicture] = useState();
   const [userInput, setUserInput] = useState({
     top: "",
     bottom: "",
   });
   const [file, setFile] = useState(false);
   const elementRef = useRef();
-
-  //Axios fetch. sets state for all means AND current picture
 
   useEffect(() => {
     const url = "https://api.imgflip.com/get_memes";
@@ -23,8 +24,6 @@ function App() {
       setCurrentPicture(memesFromTheFetch[0]);
     });
   }, []);
-
-  //Syntax below used to handle event for 2 inputs
 
   const handleUserInput = (e) => {
     setUserInput({ ...userInput, [e.target.name]: e.target.value.toUpperCase() });
@@ -67,19 +66,24 @@ function App() {
 
   return (
     <div className="App">
+      <h2>Meme Factory!</h2>
       <div>
-        <form onChange={(e) => handleUserInput(e)}>
-          <label>Type top and bottom texts:</label>
-          <input name="top" type="text" />
-          <input name="bottom" type="text" />
-        </form>
+        <Form.Group className="mb-1" onChange={(e) => handleUserInput(e)}>
+          <Form.Control size="sm" placeholder="Type top text (optional)" className="mx-auto mb-2" name="top" id="top" type="text" />
+          <Form.Control size="sm" placeholder="Type bottom text (optional)" className="mx-auto mb-2" name="bottom" id="bottom" type="text" />
+        </Form.Group>
+        <label>Choose a meme picture:</label>
+        <Button variant="secondary" size="sm" className="m-1" onClick={prev}>
+          Previous Picture
+        </Button>
+        <Button variant="secondary" size="sm" className="m-1" onClick={next}>
+          Next Picture
+        </Button>
         <br />
-        <label>Choose a meme:</label>
-        <button onClick={prev}>Previous Picture</button>
-        <button onClick={next}>Next Picture</button>
-        <br />
-        <label htmlFor="file-pic">Or use your own pic:</label>
-        <input type="file" name="file-pic" id="file-pic" onChange={(e) => handleFileInput(e)} />
+        <Form.Group controlId="formFileSm" className="m-1 mx-auto file">
+          <label htmlFor="file-input">Or use your own pic:</label>
+          <Form.Control type="file" id="file-input" size="sm" onChange={(e) => handleFileInput(e)} />
+        </Form.Group>
       </div>
       <div className="pic-div" ref={elementRef}>
         <img className="pic" src={file ? currentPicture : currentPicture.url} alt="Meme Picture" />
@@ -90,9 +94,9 @@ function App() {
           </>
         )}
       </div>
-      <button className="download" onClick={handleGenerate}>
+      <Button variant="success" size="sm" className="m-1 mx-auto download" onClick={handleGenerate}>
         Download Meme
-      </button>
+      </Button>
     </div>
   );
 }
